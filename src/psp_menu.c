@@ -46,29 +46,31 @@
 
 extern SDL_Surface *back_surface;
 
-# define MENU_SCREENSHOT   0
-# define MENU_VOLUME       1
+enum menu_items {
+  MENU_SCREENSHOT,
+  MENU_VOLUME,
 
-# define MENU_LOAD_SLOT    2
-# define MENU_SAVE_SLOT    3
-# define MENU_DEL_SLOT     4
+  MENU_LOAD_SLOT,
+  MENU_SAVE_SLOT,
+  MENU_DEL_SLOT,
 
-# define MENU_HELP         5
+  MENU_HELP,
 
-# define MENU_LOAD_STATE   6
-# define MENU_LOAD_ROM     7
+  MENU_LOAD_STATE,
+  MENU_LOAD_ROM,
 
-# define MENU_EDITOR       8
-# define MENU_CHEATS       9
-# define MENU_KEYBOARD    10
-# define MENU_JOYSTICK    11
-# define MENU_SETTINGS    12
+  MENU_EDITOR,
+  MENU_CHEATS,
+  MENU_KEYBOARD,
+  MENU_JOYSTICK,
+  MENU_SETTINGS,
 
-# define MENU_RESET       13
-# define MENU_BACK        14
-# define MENU_EXIT        15
+  MENU_RESET,
+  MENU_BACK,
+  MENU_EXIT,
 
-# define MAX_MENU_ITEM (MENU_EXIT + 1)
+  MAX_MENU_ITEM
+}
 
   static menu_item_t menu_list[] =
   {

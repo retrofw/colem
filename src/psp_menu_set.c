@@ -42,22 +42,23 @@
 
 extern SDL_Surface *back_surface;
 
-# define MENU_SET_SOUND         0
-# define MENU_SET_VIEW_FPS      1
-# define MENU_SET_SPEED_LIMIT   2
-# define MENU_SET_SKIP_FPS      3
-# define MENU_SET_RENDER        4
-# define MENU_SET_NTSC          5
-# define MENU_SET_VSYNC         6
-# define MENU_SET_CLOCK         7
+enum menu_items {
+  MENU_SET_SOUND,
+  MENU_SET_VIEW_FPS,
+  MENU_SET_SPEED_LIMIT,
+  MENU_SET_SKIP_FPS,
+  MENU_SET_RENDER,
+  MENU_SET_NTSC,
+  MENU_SET_VSYNC,
+  MENU_SET_CLOCK,
 
-# define MENU_SET_LOAD          8
-# define MENU_SET_SAVE          9
-# define MENU_SET_RESET        10
-# define MENU_SET_BACK         11
+  MENU_SET_LOAD,
+  MENU_SET_SAVE,
+  MENU_SET_RESET,
+  MENU_SET_BACK,
 
-# define MAX_MENU_SET_ITEM (MENU_SET_BACK + 1)
-
+  MAX_MENU_SET_ITEM
+}
   static menu_item_t menu_list[] =
   {
     { "Sound enable       :"},
