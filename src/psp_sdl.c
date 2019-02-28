@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -649,26 +650,72 @@ psp_sdl_save_screenshot(void)
   psp_sdl_save_screenshot_png(TmpFileName);
 }
 
+void
+psp_sdl_default_config()
+{
+  getcwd(CV.rom_directory, sizeof(CV.rom_directory));
+  strcat(CV.rom_directory , "/roms/");
+  strcpy(CV.usbjoy_filename , "./usb/default.usb");
+}
+
+int
+psp_sdl_load_config()
+{
+  char  Buffer[512];
+  char *Scan;
+  unsigned int Value;
+  FILE* FileDesc;
+
+  FileDesc = fopen( "global.cfg", "r");
+  if (FileDesc == (FILE *)0 ) return 0;
+
+  while (fgets(Buffer,512, FileDesc) != (char *)0) {
+
+    Scan = strchr(Buffer,'\n');
+    if (Scan) *Scan = '\0';
+    /* For this #@$% of windows ! */
+    Scan = strchr(Buffer,'\r');
+    if (Scan) *Scan = '\0';
+    if (Buffer[0] == '#') continue;
+
+    Scan = strchr(Buffer,'=');
+    if (! Scan) continue;
+
+    *Scan = '\0';
+    if (!strcasecmp(Buffer,"rom_directory")) {
+      strcpy(CV.rom_directory, Scan+1);
+    } else
+    if (!strcasecmp(Buffer,"usbjoy_filename")) {
+      strcpy(CV.usbjoy_filename, Scan+1);
+    }
+  }
+
+  fclose(FileDesc);
+
+  return 0;
+}
+
 int
 psp_sdl_init(void)
 {
   psp_sdl_default_config();
   psp_sdl_load_config();
+#ifdef CAANOO_MODE
   Caanoo_LoadUsbJoystickConfig( CV.usbjoy_filename );
-
+#endif
   if (SDL_Init(SDL_INIT_TIMER|SDL_INIT_VIDEO|SDL_INIT_JOYSTICK|SDL_INIT_AUDIO) < 0) {
      return 0;
   }
   SDL_JoystickEventState(SDL_ENABLE);
-# if defined( CAANOO_MODE )
+#if defined( CAANOO_MODE )
   int j;
   int num_joy = SDL_NumJoysticks();
   for (j = 0; j < num_joy; ++j) {
     psp_sdl_joy[j] = SDL_JoystickOpen(j);
   }
-# else
+#else
   SDL_JoystickOpen(0);
-# endif
+#endif
 
   if (SDL_InitSubSystem(SDL_INIT_VIDEO) < 0) {
     return 0;
@@ -722,51 +769,6 @@ psp_sdl_init(void)
   SDL_PauseAudio(1);
 
   return 1;
-}
-
-void
-psp_sdl_default_config()
-{
-  getcwd(CV.rom_directory, sizeof(CV.rom_directory));
-  strcat(CV.rom_directory , "/roms/");
-  strcpy(CV.usbjoy_filename , "./usb/default.usb");
-}
-
-int
-psp_sdl_load_config()
-{
-  char  Buffer[512];
-  char *Scan;
-  unsigned int Value;
-  FILE* FileDesc;
-
-  FileDesc = fopen( "global.cfg", "r");
-  if (FileDesc == (FILE *)0 ) return 0;
-
-  while (fgets(Buffer,512, FileDesc) != (char *)0) {
-
-    Scan = strchr(Buffer,'\n');
-    if (Scan) *Scan = '\0';
-    /* For this #@$% of windows ! */
-    Scan = strchr(Buffer,'\r');
-    if (Scan) *Scan = '\0';
-    if (Buffer[0] == '#') continue;
-
-    Scan = strchr(Buffer,'=');
-    if (! Scan) continue;
-
-    *Scan = '\0';
-    if (!strcasecmp(Buffer,"rom_directory")) {
-      strcpy(CV.rom_directory, Scan+1);
-    } else
-    if (!strcasecmp(Buffer,"usbjoy_filename")) {
-      strcpy(CV.usbjoy_filename, Scan+1);
-    }
-  }
-
-  fclose(FileDesc);
-
-  return 0;
 }
 
 int

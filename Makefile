@@ -1,7 +1,7 @@
 #
-# Colem port on CAANOO 
+# Colem port on PSP 
 #
-# Copyright (C) 2009 Ludovic Jacomme (ludovic.jacomme@gmail.com)
+# Copyright (C) 2006 Ludovic Jacomme (ludovic.jacomme@gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,72 +17,65 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-COLEM_VERSION=1.1.1
 
-TARGET = colem.gpe
-SDL_CONFIG = $(CAANOOGPH)/bin/sdl-config
-OBJS = gp2x_psp.o \
-cpucaanoo.o \
-Coleco.o \
-ColEm.o \
-Debug.o \
-SN76489.o \
-Unix.o \
-LibPsp.o \
-Z80.o \
-psp_main.o \
-psp_sdl.o \
-psp_sound.o \
-psp_kbd.o \
-psp_font.o \
-psp_menu.o \
-psp_joy.o \
-psp_danzeff.o \
-psp_menu_set.o \
-psp_menu_help.o \
-psp_menu_joy.o \
-psp_menu_kbd.o \
-psp_menu_cheat.o \
-psp_menu_list.o \
-psp_editor.o \
-miniunz.o \
-unzip.o \
-psp_fmgr.o
+CHAINPREFIX := /opt/mipsel-linux-uclibc
+CROSS_COMPILE := $(CHAINPREFIX)/usr/bin/mipsel-linux-
 
-CC=arm-gph-linux-gnueabi-gcc
-CXX=arm-gph-linux-gnueabi-g++
-STRIP=arm-gph-linux-gnueabi-strip
+CC = $(CROSS_COMPILE)gcc
+CXX = $(CROSS_COMPILE)g++
+STRIP = $(CROSS_COMPILE)strip
+
+SYSROOT     := $(shell $(CC) --print-sysroot)
+
+COLEM_VERSION=1.1.0
+
+TARGET = colem/colem.dge
+SDL_CONFIG = $(SYSROOT)/usr/bin/sdl-config
+OBJS = ./src/gp2x_psp.o \
+./src/Coleco.o \
+./src/ColEm.o \
+./src/Debug.o \
+./src/SN76489.o \
+./src/Unix.o \
+./src/LibPsp.o \
+./src/Z80.o \
+./src/psp_main.o \
+./src/psp_sdl.o \
+./src/psp_sound.o \
+./src/psp_kbd.o \
+./src/psp_font.o \
+./src/psp_menu.o \
+./src/psp_joy.o \
+./src/psp_danzeff.o \
+./src/psp_menu_set.o \
+./src/psp_menu_help.o \
+./src/psp_menu_joy.o \
+./src/psp_menu_kbd.o \
+./src/psp_menu_cheat.o \
+./src/psp_menu_list.o \
+./src/psp_editor.o \
+./src/miniunz.o \
+./src/unzip.o \
+./src/psp_fmgr.o
 
 DEFAULT_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 
-MORE_CFLAGS = -I. -I$(CAANOODEV)/include \
+MORE_CFLAGS = -I. \
 -DUNIX -DBPP16 -DLSB_FIRST -DSOUND  -DNO_STDIO_REDIRECT  -DCOLEM_VERSION=\"$(COLEM_VERSION)\" \
--DCAANOO_MODE 
+-DLINUX_MODE
 
-CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -O2 -Wall -fsigned-char
+CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -fsigned-char -g 
+CXXFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -fno-exceptions -fno-rtti
 
-LIBS += -Wl,-rpath,$(OPENCAANOO)/lib -L$(CAANOODEV)/lib -lSDL_image -lSDL -lpng -lz -lm -lpthread
+LIBS += -lSDL_image -lSDL -lXext -lX11 -lpng -ljpeg -lz -lm -lpthread
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
-
-.cpp.o:
-	$(CXX) $(CFLAGS) -c $< -o $@
+all : $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(TARGET) && $(STRIP) $(TARGET)
-
-install: $(TARGET)
-	cp $< /media/caanoo/game/caanoocolem/
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(TARGET)
 
 clean:
 	rm -f $(OBJS) $(TARGET)
 
 ctags: 
 	ctags *[ch]
-
-
-#
-#
-# /usr/local/caanoodev/bin/arm-opencaanoo-linux-gnu-gcc -L/usr/local/caanoodev/lib gp2x_psp.o Coleco.o ColEm.o Debug.o SN76489.o Unix.o LibPsp.o Z80.o psp_main.o psp_sdl.o psp_sound.o psp_kbd.o psp_font.o psp_danzeff.o psp_menu.o psp_menu_help.o psp_menu_set.o psp_menu_kbd.o psp_fmgr.o -o colem.gpe -Wl,-rpath,/usr/local/caanoodev/lib -lSDL -lSDL_image -lpng -lm -lz -lpthread
-#

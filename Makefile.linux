@@ -19,41 +19,41 @@
 #
 COLEM_VERSION=1.1.0
 
-TARGET = colem.bin
+TARGET = colem/colem.bin
 
 SDL_CONFIG = sdl-config
-OBJS = ./src/gp2x_psp.o \
-./src/Coleco.o \
-./src/ColEm.o \
-./src/Debug.o \
-./src/SN76489.o \
-./src/TMS9918.o \
-./src/Unix.o \
-./src/LibPsp.o \
-./src/Z80.o \
-./src/psp_main.o \
-./src/psp_sdl.o \
-./src/psp_sound.o \
-./src/psp_kbd.o \
-./src/psp_font.o \
-./src/psp_menu.o \
-./src/psp_joy.o \
-./src/psp_danzeff.o \
-./src/psp_menu_set.o \
-./src/psp_menu_help.o \
-./src/psp_menu_joy.o \
-./src/psp_menu_kbd.o \
-./src/psp_menu_cheat.o \
-./src/psp_menu_list.o \
-./src/psp_editor.o \
-./src/miniunz.o \
-./src/unzip.o \
-./src/psp_fmgr.o
+OBJS = ./src/gp2x_psp.o
+OBJS += ./src/Coleco.o
+OBJS += ./src/ColEm.o
+OBJS += ./src/Debug.o
+OBJS += ./src/SN76489.o
+OBJS += ./src/TMS9918.o
+OBJS += ./src/Unix.o
+OBJS += ./src/LibPsp.o
+OBJS += ./src/Z80.o
+OBJS += ./src/psp_main.o
+OBJS += ./src/psp_sdl.o
+OBJS += ./src/psp_sound.o
+OBJS += ./src/psp_kbd.o
+OBJS += ./src/psp_font.o
+OBJS += ./src/psp_menu.o
+OBJS += ./src/psp_joy.o
+OBJS += ./src/psp_danzeff.o
+OBJS += ./src/psp_menu_set.o
+OBJS += ./src/psp_menu_help.o
+OBJS += ./src/psp_menu_joy.o
+OBJS += ./src/psp_menu_kbd.o
+OBJS += ./src/psp_menu_cheat.o
+OBJS += ./src/psp_menu_list.o
+OBJS += ./src/psp_editor.o
+OBJS += ./src/miniunz.o
+OBJS += ./src/unzip.o
+OBJS += ./src/psp_fmgr.o
 
 DEFAULT_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 
 MORE_CFLAGS = -I/usr/include  -I. \
--DUNIX -DBPP16 -DLSB_FIRST -DSOUND  -DNO_STDIO_REDIRECT  -DCOLEM_VERSION=\"$(COLEM_VERSION)\" \
+-DUNIX -DBPP16 -DLSB_FIRST -DSOUND  -DCOLEM_VERSION=\"$(COLEM_VERSION)\" \
 -DLINUX_MODE
 
 CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -fsigned-char -g 

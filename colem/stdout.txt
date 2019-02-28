@@ -1,0 +1,7 @@
+psp_sdl_init:701
+psp_sdl_init:707
+psp_sdl_init:712
+psp_sdl_init:721
+psp_sdl_init:730
+psp_sdl_init:736
+psp_sdl_init:742

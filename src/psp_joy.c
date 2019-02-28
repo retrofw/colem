@@ -26,28 +26,13 @@
 int
 psp_joy_load_usb_config(char *usbjoy_filename)
 {
-  int error = Caanoo_LoadUsbJoystickConfig( usbjoy_filename );
+int error = 1;
+#ifdef CAANOO_MODE
+  error = Caanoo_LoadUsbJoystickConfig( usbjoy_filename );
   if (! error) {
     strcpy( CV.usbjoy_filename, usbjoy_filename );
   }
-  return error;
-}
-
-int
-psp_joy_load_settings(char *joy_filename)
-{
-  FILE    *JoyFile;
-  int      error = 0;
-  
-  JoyFile = fopen(joy_filename, "r");
-  error   = 1;
-
-  if (JoyFile != (FILE*)0) {
-    psp_joy_load_settings_file(JoyFile);
-    error = 0;
-    fclose(JoyFile);
-  }
-
+#endif
   return error;
 }
 
@@ -99,6 +84,24 @@ psp_joy_load_settings_file(FILE *JoyFile)
   }
 
   return 0;
+}
+
+int
+psp_joy_load_settings(char *joy_filename)
+{
+  FILE    *JoyFile;
+  int      error = 0;
+  
+  JoyFile = fopen(joy_filename, "r");
+  error   = 1;
+
+  if (JoyFile != (FILE*)0) {
+    psp_joy_load_settings_file(JoyFile);
+    error = 0;
+    fclose(JoyFile);
+  }
+
+  return error;
 }
 
 int
