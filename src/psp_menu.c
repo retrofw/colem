@@ -40,33 +40,34 @@
 #include "psp_menu_joy.h"
 #include "psp_menu_set.h"
 #include "psp_menu_cheat.h"
-#include "psp_menu_help.h"
-#include "psp_editor.h"
+// #include "psp_menu_help.h"
+// #include "psp_editor.h"
 #include "gp2x_psp.h"
 
 extern SDL_Surface *back_surface;
 
 enum menu_items {
-  MENU_SCREENSHOT,
-  MENU_VOLUME,
 
   MENU_LOAD_SLOT,
   MENU_SAVE_SLOT,
   MENU_DEL_SLOT,
 
-  MENU_HELP,
+  MENU_SCREENSHOT,
+  MENU_VOLUME,
+
+  // MENU_HELP,
 
   MENU_LOAD_STATE,
   MENU_LOAD_ROM,
 
-  MENU_EDITOR,
+  // MENU_EDITOR,
   MENU_CHEATS,
   MENU_KEYBOARD,
   MENU_JOYSTICK,
   MENU_SETTINGS,
 
   MENU_RESET,
-  MENU_BACK,
+  // MENU_BACK,
   MENU_EXIT,
 
   MAX_MENU_ITEM
@@ -74,26 +75,26 @@ enum menu_items {
 
   static menu_item_t menu_list[] =
   {
-    { "Save Screenshot :" },
-    { "Volume          :" },
-
     { "Load Slot" },
     { "Save Slot" },
     { "Delete Slot" },
 
-    { "Help" },
+    { "Save Screenshot :" },
+    { "Volume          :" },
+
+    // { "Help" },
 
     { "Load State" },
     { "Load Rom" },   
 
-    { "Comments" },
+    // { "Comments" },
     { "Cheats" },
     { "Keyboard" }, 
     { "Joystick" },
     { "Settings" },
 
-    { "Reset Coleco" },
-    { "Back to Coleco" },
+    { "Reset" },
+    // { "Back to Coleco" },
     { "Exit" }
   };
 
@@ -146,16 +147,16 @@ psp_display_screen_menu(void)
     else 
     if (menu_id == MENU_EXIT) color = PSP_MENU_WARNING_COLOR;
     else
-    if (menu_id == MENU_HELP) color = PSP_MENU_GREEN_COLOR;
+    // if (menu_id == MENU_HELP) color = PSP_MENU_GREEN_COLOR;
 
-    if (menu_id == MENU_EDITOR) {
-      if (CV.comment_present) {
-        psp_sdl_back2_print(x, y, "View comment", color);
-      } else {
-        psp_sdl_back2_print(x, y, "New comment", color);
-      }
+    // if (menu_id == MENU_EDITOR) {
+    //   if (CV.comment_present) {
+    //     psp_sdl_back2_print(x, y, "View comment", color);
+    //   } else {
+    //     psp_sdl_back2_print(x, y, "New comment", color);
+    //   }
 
-    } else {
+    // } else {
       psp_sdl_back2_print(x, y, menu_list[menu_id].title, color);
     }
 
@@ -176,17 +177,17 @@ psp_display_screen_menu(void)
     if (menu_id == MENU_SETTINGS) {
       y += y_step;
     } else
-    if (menu_id == MENU_BACK) {
-      y += y_step;
-    } else
+    // if (menu_id == MENU_BACK) {
+    //   y += y_step;
+    // } else
     if (menu_id == MENU_LOAD_ROM) {
       y += y_step;
     } else
     if (menu_id == MENU_CHEATS) {
     } else
-    if (menu_id == MENU_HELP) {
-      y += y_step;
-    }
+    // if (menu_id == MENU_HELP) {
+    //   y += y_step;
+    // }
 
     y += y_step;
   }
@@ -529,9 +530,9 @@ psp_main_menu(void)
                               old_pad = new_pad = 0;
         break;              
 
-        case MENU_EDITOR    : psp_main_menu_editor();
-                              old_pad = new_pad = 0;
-        break;
+        // case MENU_EDITOR    : psp_main_menu_editor();
+        //                       old_pad = new_pad = 0;
+        // break;
 
         case MENU_CHEATS    : psp_cheat_menu();
                               old_pad = new_pad = 0;
@@ -558,15 +559,15 @@ psp_main_menu(void)
                               end_menu = 1;
         break;
 
-        case MENU_BACK      : end_menu = 1;
-        break;
+        // case MENU_BACK      : end_menu = 1;
+        // break;
 
         case MENU_EXIT      : psp_main_menu_exit();
         break;
 
-        case MENU_HELP      : psp_help_menu();
-                              old_pad = new_pad = 0;
-        break;              
+        // case MENU_HELP      : psp_help_menu();
+        //                       old_pad = new_pad = 0;
+        // break;              
       }
 
     } else
