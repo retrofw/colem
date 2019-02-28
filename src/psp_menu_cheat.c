@@ -67,7 +67,8 @@ enum menu_items {
   // MENU_CHEAT_BACK,
 
   MAX_MENU_CHEAT_ITEM
-}
+};
+
   static menu_item_t menu_list[] =
   {
     { "Scan Old   :"},
@@ -93,7 +94,7 @@ enum menu_items {
 
 # define MAX_SCAN_ADDR    10
 
-  static int cur_menu_id    = MENU_CHEAT_LOAD;
+  static int cur_menu_id    = 0;
   static int cur_cheat      = 0;
 
   static uchar  scan_old_value  = 3;

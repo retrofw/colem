@@ -71,7 +71,7 @@ enum menu_items {
   MENU_EXIT,
 
   MAX_MENU_ITEM
-}
+};
 
   static menu_item_t menu_list[] =
   {
@@ -98,7 +98,7 @@ enum menu_items {
     { "Exit" }
   };
 
-  static int cur_menu_id = MENU_LOAD_ROM;
+  static int cur_menu_id = 0;
   static int cur_slot    = 0;
 
 void 
@@ -507,7 +507,8 @@ psp_main_menu(void)
       }
     } else 
     if ((new_pad == GP2X_CTRL_CIRCLE))
- switch (cur_menu_id ) 
+    {
+      switch (cur_menu_id ) 
       {
         case MENU_LOAD_SLOT : if (psp_main_menu_load_slot()) end_menu = 1;
         break;

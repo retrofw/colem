@@ -65,7 +65,7 @@ enum menu_items {
   // MENU_KBD_BACK,
 
   MAX_MENU_KBD_ITEM
-}
+};
 
   static menu_item_t menu_list[] =
   { 
@@ -95,7 +95,7 @@ enum menu_items {
    // { "Back to Menu" }
   };
 
-  static int cur_menu_id = MENU_KBD_LOAD;
+  static int cur_menu_id = 0;
 
   static int loc_kbd_mapping[ KBD_ALL_BUTTONS ];
   static int loc_kbd_mapping_L[ KBD_ALL_BUTTONS ];

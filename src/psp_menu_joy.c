@@ -57,7 +57,7 @@ enum menu_items {
   // MENU_JOY_BACK,
 
   MAX_MENU_JOY_ITEM
-}
+};
 
   static menu_item_t menu_list[] =
   {

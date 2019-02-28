@@ -58,7 +58,7 @@ enum menu_items {
   // MENU_SET_BACK,
 
   MAX_MENU_SET_ITEM
-}
+};
   static menu_item_t menu_list[] =
   {
     { "Sound enable       :"},
@@ -75,7 +75,7 @@ enum menu_items {
     // { "Back to Menu"         }
   };
 
-  static int cur_menu_id = MENU_SET_LOAD;
+  static int cur_menu_id = 0;
 
   static int cv_snd_enable        = 0;
   static int cv_render_mode       = 0;
