@@ -106,15 +106,11 @@ psp_display_screen_joystick_menu(void)
   char buffer[64];
   int menu_id = 0;
   int color   = 0;
-  int x       = 0;
-  int y       = 0;
-  int y_step  = 0;
+  int x       = 10;
+  int y       = 20;
+  int y_step  = 10;
 
   psp_sdl_blit_help();
-  
-  x      = 10;
-  y      =  5;
-  y_step = 10;
   
   for (menu_id = 0; menu_id < MAX_MENU_JOY_ITEM; menu_id++) {
     color = PSP_MENU_TEXT_COLOR;

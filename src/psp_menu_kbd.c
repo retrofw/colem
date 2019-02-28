@@ -138,16 +138,12 @@ psp_display_screen_kbd_menu(void)
   int kbd_id  = 0;
   int cv_key = 0;
   int color   = 0;
-  int x       = 0;
-  int y       = 0;
-  int y_step  = 0;
+  int x       = 10;
+  int y       = 20;
+  int y_step  = 10;
 
   psp_sdl_blit_help();
 
-  x      = 10;
-  y      =  5;
-  y_step = 10;
-  
   for (menu_id = 0; menu_id < MAX_MENU_KBD_ITEM; menu_id++) 
   {
     if (cur_menu_id == menu_id) color = PSP_MENU_SEL_COLOR;
