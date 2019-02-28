@@ -764,8 +764,8 @@ psp_update_keys(void)
       loc_button_data[j].Buttons &= PSP_ALL_BUTTON_MASK;
     }
 
-    // psp_main_menu();
-    psp_fmgr_menu_load(psp_fmgr_getExtId(user_filename), user_filename);
+    if (strlen(user_filename)) psp_fmgr_menu_load(psp_fmgr_getExtId(user_filename), user_filename);
+    else psp_main_menu();
     psp_init_keyboard();
 
     return 0;

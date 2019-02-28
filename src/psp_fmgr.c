@@ -635,7 +635,7 @@ psp_fmgr_menu_load(int format, const char *_user_filename)
 
 
     // strcpy(user_filename, "test.rom");
-if (!strcmp(user_filename, "") && !psp_file_request(user_filename, user_filedir)) return 0;
+if (!strlen(user_filename) > 0 && !psp_file_request(user_filename, user_filedir)) return 0;
 
 
   if (1 || !strcmp(user_filename, "") || psp_file_request(user_filename, user_filedir)) {

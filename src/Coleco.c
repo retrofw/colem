@@ -143,7 +143,7 @@ cv_update_save_name(char *Name)
   }
 
   if (CV.cv_save_name[0] == '\0') {
-    strcpy(CV.cv_save_name,"default");
+    strcpy(CV.cv_save_name,"coleco");
   }
 
   for (index = 0; index < CV_MAX_SAVE_STATE; index++) {
@@ -738,9 +738,9 @@ StartColeco()
     return 0;
   }
 
-  if (! loc_load_rom("default.rom")) return 0;
+  // if (! loc_load_rom("coleco.rom")) return 0;
 
-  cv_update_save_name("default");
+  // cv_update_save_name("coleco");
 
   if(!PrnName) PrnStream=stdout;
   else

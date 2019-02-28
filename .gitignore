@@ -2,6 +2,7 @@
 *.bin
 *.ipk
 *.opk
+*.cfg
 
 # Prerequisites
 *.d
