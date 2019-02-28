@@ -1,0 +1,84 @@
+#
+# Colem port on GP2X
+#
+# Copyright (C) 2009 Ludovic Jacomme (ludovic.jacomme@gmail.com)
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+COLEM_VERSION=1.1.0
+
+TARGET = gp2xcolem.gpe
+SDL_CONFIG = $(GP2XDEV)/bin/sdl-config
+OBJS = gp2x_psp.o \
+cpugp2x.o  \
+Coleco.o \
+ColEm.o \
+Debug.o \
+SN76489.o \
+Unix.o \
+LibPsp.o \
+Z80.o \
+psp_main.o \
+psp_sdl.o \
+psp_sound.o \
+psp_kbd.o \
+psp_font.o \
+psp_menu.o \
+psp_joy.o \
+psp_danzeff.o \
+psp_menu_set.o \
+psp_menu_help.o \
+psp_menu_joy.o \
+psp_menu_kbd.o \
+psp_menu_cheat.o \
+psp_menu_list.o \
+psp_editor.o \
+miniunz.o \
+unzip.o \
+psp_fmgr.o
+
+CC=open2x-gcc
+CXX=open2x-g++
+STRIP=open2x-strip
+
+DEFAULT_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
+DEFAULT_LDFLAGS = $(shell $(SDL_CONFIG) --libs)
+
+MORE_CFLAGS = -I. -I$(GP2XDEV)/include \
+-DUNIX -DBPP16 -DLSB_FIRST -DSOUND  -DNO_STDIO_REDIRECT  -DCOLEM_VERSION=\"$(COLEM_VERSION)\" \
+-DGP2X_MODE -static 
+
+CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -O3 -Wall -fsigned-char \
+    -funroll-loops -ffast-math -fomit-frame-pointer -fno-strength-reduce -finline-functions
+
+LIBS += -L$(GP2XDEV)/lib -lSDL_image -lSDL_fast -lpng -ljpeg -lz -lm -lpthread -lstdc++
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.cpp.o:
+	$(CXX) $(CFLAGS) -c $< -o $@
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(TARGET) && $(STRIP) $(TARGET)
+
+install: $(TARGET)
+	cp $< /media/usbdisk/game/gp2xcolem/
+
+clean:
+	rm -f $(OBJS) $(TARGET)
+
+ctags: 
+	ctags *[ch]

@@ -1,0 +1,35 @@
+1.0.3
+
+- Speed improvements, the z80 part has been rewritten using jump tables,
+- Emulation accuracy improvements (original hidden frameskip of one has 
+  been removed, and cpu cycles are modified according to ntsc/pal mode)
+- Add ntsc/pal option
+- Display and save thumbnail images for each save state
+- Add several new hotkeys :
+  . settings such as fps, render mode, auto fire speed
+    can now be directly modified inside the emulator
+    (no need to enter in the settings menu)
+  . quick save / quick load current state
+    (no need to enter in the main menu)
+- Default Hotkeys can now be set in the keyboard mapping menu
+  (useful to add hotkeys on existing/previous keyboard files)
+- Auto-fire mode, press RTrigger+X to switch it on/off
+- New graphics and add a simple intro splash screen  
+- Option to display frame rate
+- Option to prevent the blue led to be displayed when 
+  L or R are pressed
+
+1.0.2
+
+- Improve speed !
+- Improve emulation accuracy
+- Add MMU hack stuff
+- Add option to display frame rate
+- New speed limiter function (better accuracy)
+- Improve volume handler
+- Linked with my patched version of SDL
+- Bug fix in file requester 
+
+1.0.1
+
+- Intial release
