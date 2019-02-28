@@ -54,7 +54,7 @@ enum menu_items {
   MENU_JOY_SAVE,
   MENU_JOY_RESET,
   MENU_JOY_LOAD_USB,
-  MENU_JOY_BACK,
+  // MENU_JOY_BACK,
 
   MAX_MENU_JOY_ITEM
 }
@@ -74,10 +74,10 @@ enum menu_items {
 
     { "Load USB config"     },
 
-    { "Back to Menu"        }
+    // { "Back to Menu"        }
   };
 
-  static int cur_menu_id = MENU_JOY_LOAD;
+  static int cur_menu_id = 0;
 
   static int psp_reverse_analog  = 0;
   static int player_joy_0        = 0;
@@ -369,8 +369,8 @@ psp_joystick_menu(void)
         case MENU_JOY_RESET      : psp_joystick_menu_reset();
         break;                     
                                    
-        case MENU_JOY_BACK       : end_menu = 1;
-        break;                     
+        // case MENU_JOY_BACK       : end_menu = 1;
+        // break;                     
       }
 
     } else

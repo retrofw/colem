@@ -55,7 +55,7 @@ enum menu_items {
   MENU_SET_LOAD,
   MENU_SET_SAVE,
   MENU_SET_RESET,
-  MENU_SET_BACK,
+  // MENU_SET_BACK,
 
   MAX_MENU_SET_ITEM
 }
@@ -72,7 +72,7 @@ enum menu_items {
     { "Load settings"        },
     { "Save settings"        },
     { "Reset settings"       },
-    { "Back to Menu"         }
+    // { "Back to Menu"         }
   };
 
   static int cur_menu_id = MENU_SET_LOAD;
@@ -438,8 +438,8 @@ psp_settings_menu(void)
         case MENU_SET_RESET      : psp_settings_menu_reset();
         break;                     
                                    
-        case MENU_SET_BACK       : end_menu = 1;
-        break;                     
+        // case MENU_SET_BACK       : end_menu = 1;
+        // break;                     
       }
 
     } else

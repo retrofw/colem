@@ -64,7 +64,7 @@ enum menu_items {
   MENU_CHEAT_SAVE,
   MENU_CHEAT_RESET,
                                  
-  MENU_CHEAT_BACK,
+  // MENU_CHEAT_BACK,
 
   MAX_MENU_CHEAT_ITEM
 }
@@ -88,7 +88,7 @@ enum menu_items {
     { "Save cheat" },
     { "Reset cheat" },
 
-    { "Back to Menu"         }
+    // { "Back to Menu"         }
   };
 
 # define MAX_SCAN_ADDR    10
@@ -633,8 +633,8 @@ psp_cheat_menu(void)
         case MENU_CHEAT_RESET : psp_cheat_menu_reset_cheat();
         break;
 
-        case MENU_CHEAT_BACK : end_menu = 1;
-        break;
+        // case MENU_CHEAT_BACK : end_menu = 1;
+        // break;
       }
 
 
