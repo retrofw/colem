@@ -583,12 +583,16 @@ static char user_filedir_save[GP2X_FMGR_MAX_NAME];
 static char *user_filedir_rom;
 
 int 
-psp_fmgr_menu(int format)
+psp_fmgr_menu_load(int format, const char *_user_filename)
 {
   static int  first = 1;
 
   char *user_filedir;
-  char user_filename[GP2X_FMGR_MAX_NAME];
+  // char user_filename[GP2X_FMGR_MAX_NAME];
+
+  strcpy(user_filename, _user_filename);
+
+  // char *user_filename;
   struct stat       aStat;
   int               file_format;
   int               error;
@@ -629,7 +633,12 @@ psp_fmgr_menu(int format)
 
   psp_kbd_wait_no_button();
 
-  if (psp_file_request(user_filename, user_filedir)) {
+
+    // strcpy(user_filename, "test.rom");
+if (!strcmp(user_filename, "") && !psp_file_request(user_filename, user_filedir)) return 0;
+
+
+  if (1 || !strcmp(user_filename, "") || psp_file_request(user_filename, user_filedir)) {
     error = 0;
     if (stat(user_filename, &aStat)) error = 1;
     else 
@@ -666,4 +675,9 @@ psp_fmgr_menu(int format)
   psp_kbd_wait_no_button();
 
   return ret;
+}
+
+int 
+psp_fmgr_menu(int format) {
+  return psp_fmgr_menu_load(format, "");
 }

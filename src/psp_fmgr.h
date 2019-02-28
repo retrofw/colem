@@ -23,8 +23,6 @@
 extern "C" {
 #endif
 
-# define GP2X_FMGR_MAX_PATH    512
-# define GP2X_FMGR_MAX_NAME    256
 # define GP2X_FMGR_MAX_ENTRY  2048
 
 # define FMGR_FORMAT_ROM   1

@@ -75,6 +75,7 @@ main(int argc, char *argv[])
 //   setvbuf(stdout, NULL, _IOLBF, BUFSIZ);  /* Line buffered */
 //   setbuf(stderr, NULL);          /* No buffering */
 // #endif /* NO_STDIO_REDIRECT */
+if (argc > 1) strcpy(user_filename, argv[1]);
 
   atexit(cleanup_output);
 
