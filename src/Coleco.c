@@ -726,10 +726,7 @@ StartColeco()
   if(!(VRAM=malloc(0x4000))) { return(0); }
   memset(VRAM,NORAM,0x4000);
 
-  strcpy(TmpName, CV.cv_home_dir);
-  strcat(TmpName,"/coleco.rom");
-
-  if (F=fopen(TmpName,"rb"))
+  if (F=fopen("coleco.rom","rb"))
   {
     if(fread(RAM,1,0x2000,F)!=0x2000) {
       fclose(F);
@@ -741,10 +738,7 @@ StartColeco()
     return 0;
   }
 
-  strcpy(TmpName, CV.cv_home_dir);
-  strcat(TmpName,"/default.rom");
-
-  if (! loc_load_rom(TmpName)) return 0;
+  if (! loc_load_rom("default.rom")) return 0;
 
   cv_update_save_name("default");
 

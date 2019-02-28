@@ -27,7 +27,17 @@ int
 SDL_main(int argc,char *argv[])
 {
   memset(&CV, 0, sizeof(ColecoVision_t));
-  strcpy(CV.cv_home_dir,".");
+ 
+  static char cfg_dir[MAX_PATH];
+  snprintf(CV.cv_home_dir, sizeof(CV.cv_home_dir), "%s/.colem", getenv("HOME")); mkdir(CV.cv_home_dir, 0777);
+  snprintf(cfg_dir, MAX_PATH, "%s/cht",  CV.cv_home_dir); mkdir(cfg_dir, 0777);
+  snprintf(cfg_dir, MAX_PATH, "%s/joy",  CV.cv_home_dir); mkdir(cfg_dir, 0777);
+  snprintf(cfg_dir, MAX_PATH, "%s/kbd",  CV.cv_home_dir); mkdir(cfg_dir, 0777);
+  snprintf(cfg_dir, MAX_PATH, "%s/roms", CV.cv_home_dir); mkdir(cfg_dir, 0777);
+  snprintf(cfg_dir, MAX_PATH, "%s/save", CV.cv_home_dir); mkdir(cfg_dir, 0777);
+  snprintf(cfg_dir, MAX_PATH, "%s/scr",  CV.cv_home_dir); mkdir(cfg_dir, 0777);
+  snprintf(cfg_dir, MAX_PATH, "%s/set",  CV.cv_home_dir); mkdir(cfg_dir, 0777);
+  snprintf(cfg_dir, MAX_PATH, "%s/txt",  CV.cv_home_dir); mkdir(cfg_dir, 0777);
 
   psp_sdl_init();
 
