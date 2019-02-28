@@ -259,7 +259,9 @@ Caanoo_LoadUsbJoystickConfig( char* filename )
 int
 Caanoo_ConvertUsbBuzz(SDL_Event* SDLEvent )
 {
-  int key = SDLEvent->key.keysym.scancode;
+
+  // int key = SDLEvent->key.keysym.scancode;
+  int key = SDLEvent->key.keysym.sym;
   int jbutton = 0;
 
   switch( key ) {
@@ -355,7 +357,8 @@ gp2xCtrlPeekBufferPositive(gp2xCtrlData* c, int v)
     else
     if (SDLEvent.type==SDL_JOYBUTTONUP) ButtonRelease = 1;
 #else
-    Event=((SDL_KeyboardEvent*)(&SDLEvent))->keysym.scancode;
+    // Event=((SDL_KeyboardEvent*)(&SDLEvent))->keysym.scancode;
+    Event=((SDL_KeyboardEvent*)(&SDLEvent))->keysym.sym;
     if (SDLEvent.type==SDL_KEYDOWN) {
       ButtonPress = 1;
     } else
