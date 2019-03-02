@@ -124,7 +124,7 @@ psp_display_screen_cheat_menu(void)
  
   for (menu_id = 0; menu_id < MAX_MENU_CHEAT_ITEM; menu_id++) {
     color = PSP_MENU_TEXT_COLOR;
-    if (menu_id == MENU_CHEAT_DEL) color = PSP_MENU_NOTE_COLOR;
+    // if (menu_id == MENU_CHEAT_DEL) color = PSP_MENU_NOTE_COLOR;
     if (cur_menu_id == menu_id) color = PSP_MENU_SEL_COLOR;
 
     psp_sdl_back2_print(x, y, menu_list[menu_id].title, color);
@@ -199,7 +199,7 @@ psp_display_screen_cheat_menu(void)
   }
 
   y_step = 10;
-  y      = 65;
+  y      = 85;
 
   for (cheat_id = 0; cheat_id < CV_MAX_CHEAT; cheat_id++) {
     if (cheat_id == cur_cheat) color = PSP_MENU_SEL2_COLOR;
@@ -574,23 +574,10 @@ psp_cheat_menu(void)
     if ((c.Buttons & GP2X_CTRL_RTRIGGER) == GP2X_CTRL_RTRIGGER) {
       psp_cheat_menu_reset_cheat();
     } else
-    if ((new_pad == GP2X_CTRL_LEFT ) || 
-        (new_pad == GP2X_CTRL_RIGHT) ||
-        (new_pad == GP2X_CTRL_CROSS) || 
-        (new_pad == GP2X_CTRL_CIRCLE))
+    if ((new_pad == GP2X_CTRL_LEFT ) || (new_pad == GP2X_CTRL_RIGHT))
     {
-      int step;
-      int step2;
-
-      if (new_pad & GP2X_CTRL_LEFT)  step = -1;
-      else 
-      if (new_pad & GP2X_CTRL_RIGHT) step =  1;
-      else                          step =  0;
-
-      if (new_pad & GP2X_CTRL_CROSS)  step2 = -1;
-      else 
-      if (new_pad & GP2X_CTRL_CIRCLE) step2 =  1;
-      else                           step2 =  0;
+      int step = 1;
+      if (new_pad & GP2X_CTRL_LEFT) step = -1;
 
       switch (cur_menu_id ) 
       {
@@ -600,26 +587,37 @@ psp_cheat_menu(void)
         break;
         case MENU_CHEAT_POKE    : psp_cheat_menu_poke_val(step);
         break;
+        case MENU_CHEAT_ENABLE :
+        case MENU_CHEAT_VALUE  :
+        case MENU_CHEAT_IMPORT :
+        case MENU_CHEAT_DEL : psp_cheat_menu_cur_cheat(step);
+        break;
+      }
+
+    } else
+    if ((new_pad == GP2X_CTRL_CIRCLE))
+    {
+      int step = 1;
+      if (new_pad & GP2X_CTRL_CIRCLE) step = -1;
+
+      switch (cur_menu_id ) 
+      {
         case MENU_CHEAT_RAM     : psp_cheat_menu_save_ram();
         break;
         case MENU_CHEAT_ADD     : psp_cheat_menu_add_cheat();
         break;
-        case MENU_CHEAT_ENABLE : if (step) psp_cheat_menu_cur_cheat(step);
-                                 else      psp_cheat_menu_enable_cheat();
+        case MENU_CHEAT_ENABLE : psp_cheat_menu_enable_cheat();
         break;
         case MENU_CHEAT_ALL    : psp_cheat_menu_enable_all_cheat();
         break;
-        case MENU_CHEAT_VALUE  : if (step) psp_cheat_menu_cur_cheat(step);
-                                 else psp_cheat_menu_value_cheat(step2);
+        case MENU_CHEAT_VALUE  : psp_cheat_menu_value_cheat(step);
         break;
-        case MENU_CHEAT_IMPORT : if (step) psp_cheat_menu_cur_cheat(step);
-                                 else      psp_cheat_menu_cheat_list();
+        case MENU_CHEAT_IMPORT : psp_cheat_menu_cheat_list();
         break;
         case MENU_CHEAT_EDIT   : psp_cheat_menu_edit_list();
         break;
 
-        case MENU_CHEAT_DEL : if (step) psp_cheat_menu_cur_cheat(step);
-                              else      psp_cheat_menu_del_cheat();
+        case MENU_CHEAT_DEL : psp_cheat_menu_del_cheat();
         break;
         case MENU_CHEAT_LOAD : psp_cheat_menu_load(FMGR_FORMAT_CHT);
                                old_pad = new_pad = 0;
@@ -633,7 +631,6 @@ psp_cheat_menu(void)
         // case MENU_CHEAT_BACK : end_menu = 1;
         // break;
       }
-
 
     } else
     if(new_pad & GP2X_CTRL_UP) {
@@ -652,7 +649,7 @@ psp_cheat_menu(void)
       /* Cancel */
       end_menu = -1;
     } else 
-    if(new_pad & GP2X_CTRL_SELECT) {
+    if((new_pad & GP2X_CTRL_CROSS) || (new_pad & GP2X_CTRL_SELECT)) {
       /* Back to MENU */
       end_menu = 1;
     }

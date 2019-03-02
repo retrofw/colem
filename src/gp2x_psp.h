@@ -144,7 +144,6 @@ extern SDL_Joystick* psp_sdl_joy[GP2X_MAX_JOY];
 #else
 
 //some keys of the keyboard to emulate gp2x
-//some keys of the keyboard to emulate gp2x
 
 #define GP2X_UP             SDLK_UP //80 //SDLK_KP8
 #define GP2X_DOWN           SDLK_DOWN // 88 //SDLK_KP2
