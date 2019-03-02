@@ -31,48 +31,84 @@ COLEM_VERSION=1.1.0
 
 TARGET = colem/colem.dge
 SDL_CONFIG = $(SYSROOT)/usr/bin/sdl-config
-OBJS = ./src/gp2x_psp.o \
-./src/Coleco.o \
-./src/ColEm.o \
-./src/Debug.o \
-./src/SN76489.o \
-./src/Unix.o \
-./src/LibPsp.o \
-./src/Z80.o \
-./src/psp_main.o \
-./src/psp_sdl.o \
-./src/psp_sound.o \
-./src/psp_kbd.o \
-./src/psp_font.o \
-./src/psp_menu.o \
-./src/psp_joy.o \
-./src/psp_danzeff.o \
-./src/psp_menu_set.o \
-./src/psp_menu_help.o \
-./src/psp_menu_joy.o \
-./src/psp_menu_kbd.o \
-./src/psp_menu_cheat.o \
-./src/psp_menu_list.o \
-./src/psp_editor.o \
-./src/miniunz.o \
-./src/unzip.o \
-./src/psp_fmgr.o
+
+OBJS = ./src/gp2x_psp.o
+OBJS += ./src/Coleco.o
+OBJS += ./src/ColEm.o
+OBJS += ./src/Debug.o
+OBJS += ./src/SN76489.o
+OBJS += ./src/TMS9918.o
+OBJS += ./src/Unix.o
+OBJS += ./src/LibPsp.o
+OBJS += ./src/Z80.o
+OBJS += ./src/psp_main.o
+OBJS += ./src/psp_sdl.o
+OBJS += ./src/psp_sound.o
+OBJS += ./src/psp_kbd.o
+OBJS += ./src/psp_font.o
+OBJS += ./src/psp_menu.o
+OBJS += ./src/psp_joy.o
+OBJS += ./src/psp_danzeff.o
+OBJS += ./src/psp_menu_set.o
+OBJS += ./src/psp_menu_help.o
+OBJS += ./src/psp_menu_joy.o
+OBJS += ./src/psp_menu_kbd.o
+OBJS += ./src/psp_menu_cheat.o
+OBJS += ./src/psp_menu_list.o
+OBJS += ./src/psp_editor.o
+OBJS += ./src/miniunz.o
+OBJS += ./src/unzip.o
+OBJS += ./src/psp_fmgr.o
 
 DEFAULT_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 
-MORE_CFLAGS = -I. \
--DUNIX -DBPP16 -DLSB_FIRST -DSOUND  -DNO_STDIO_REDIRECT  -DCOLEM_VERSION=\"$(COLEM_VERSION)\" \
--DLINUX_MODE
+MORE_CFLAGS = -I. -DUNIX -DBPP16 -DLSB_FIRST -DSOUND  -DCOLEM_VERSION=\"$(COLEM_VERSION)\"
+# MORE_CFLAGS += -DCAANOO_MODE
 
-CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -fsigned-char -g 
-CXXFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -fno-exceptions -fno-rtti
+# MORE_CFLAGS += -DNARROW -DSOUND -DBPP16 -DSDL -DLSB_FIRST
+# MORE_CFLAGS += -I. -I$(SYSROOT)/usr/include  -I$(SYSROOT)/usr/lib  -I$(SYSROOT)/lib
+# MORE_CFLAGS += -DMPU_JZ4740
+# MORE_CFLAGS += -I./src -I./src/emucore -I./src/common -I./src/psp -DPSP -DBSPF_PSP -DSOUND_SUPPORT
+# MORE_CFLAGS += -fsigned-char -ffast-math -fomit-frame-pointer -fno-strength-reduce
+MORE_CFLAGS += -DDINGUX_MODE -mips32 -O3
+#MORE_CFLAGS += -g -DNO_STDIO_REDIRECT
+# MORE_CFLAGS += -O2 -fomit-frame-pointer -ffunction-sections -ffast-math -fsingle-precision-constant # -G0
 
-LIBS += -lSDL_image -lSDL -lXext -lX11 -lpng -ljpeg -lz -lm -lpthread
+CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -O2 -Wall -fsigned-char
+
+LIBS += -Wl,-rpath,$(SYSROOT)/lib -L$(SYSROOT)/lib -lSDL_image -lSDL -lpng -lz -lm
+ # -lpthread
+
+
+
+
+
+
+
+# LIBS += -B$(SYSROOT)/lib
+# LIBS += -lSDL_image -lpng
+# LIBS += -lpthread  -ldl -lstdc++
+
+CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) 
+
+
+
+
+
+
+
+
 
 all : $(TARGET)
 
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.cpp.o:
+	$(CXX) $(CFLAGS) -c $< -o $@
+
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(TARGET)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(TARGET) && $(STRIP) $(TARGET)
 
 clean:
 	rm -f $(OBJS) $(TARGET)

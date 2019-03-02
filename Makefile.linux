@@ -22,6 +22,7 @@ COLEM_VERSION=1.1.0
 TARGET = colem/colem.bin
 
 SDL_CONFIG = sdl-config
+
 OBJS = ./src/gp2x_psp.o
 OBJS += ./src/Coleco.o
 OBJS += ./src/ColEm.o
