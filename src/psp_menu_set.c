@@ -43,12 +43,12 @@
 extern SDL_Surface *back_surface;
 
 enum menu_items {
+  MENU_SET_RENDER,
   MENU_SET_VIEW_FPS,
   MENU_SET_SKIP_FPS,
   MENU_SET_SPEED_LIMIT,
-  MENU_SET_SOUND,
-  MENU_SET_RENDER,
   MENU_SET_NTSC,
+  MENU_SET_SOUND,
   MENU_SET_VSYNC,
   MENU_SET_CLOCK,
 
@@ -61,12 +61,12 @@ enum menu_items {
 };
   static menu_item_t menu_list[] =
   {
-    { "Display FPS        :"},
+    { "Render mode        :"},
+    { "Show FPS           :"},
     { "Frameskip          :"},
     { "Speed limiter      :"},
-    { "Sound enable       :"},
-    { "Render mode        :"},
     { "Video mode         :"},
+    { "Sound enabled      :"},
     { "Vsync              :"},
     { "Clock frequency    :"},
     { "Load settings"        },
