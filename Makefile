@@ -91,14 +91,6 @@ LIBS += -Wl,-rpath,$(SYSROOT)/lib -L$(SYSROOT)/lib -lSDL_image -lSDL -lpng -lz -
 
 CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) 
 
-
-
-
-
-
-
-
-
 all : $(TARGET)
 
 .c.o:
@@ -109,6 +101,18 @@ all : $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(TARGET) && $(STRIP) $(TARGET)
+
+ipk: $(TARGET)
+	@rm -rf /tmp/.colem-ipk/ && mkdir -p /tmp/.colem-ipk/root/home/retrofw/emus/colem /tmp/.colem-ipk/root/home/retrofw/apps/gmenu2x/sections/emulators /tmp/.colem-ipk/root/home/retrofw/apps/gmenu2x/sections/emulators.systems
+	@cp -r colem/coleco.rom colem/colem.dge colem/colem.man.txt colem/colem.png colem/splash.png colem/thumb.png colem/background.png colem/graphics /tmp/.colem-ipk/root/home/retrofw/emus/colem
+	@cp colem/colem.lnk /tmp/.colem-ipk/root/home/retrofw/apps/gmenu2x/sections/emulators
+	@cp colem/colecovision.colem.lnk /tmp/.colem-ipk/root/home/retrofw/apps/gmenu2x/sections/emulators.systems
+	@sed "s/^Version:.*/Version: $$(date +%Y%m%d)/" colem/control > /tmp/.colem-ipk/control
+	@cp colem/conffiles /tmp/.colem-ipk/
+	@tar --owner=0 --group=0 -czvf /tmp/.colem-ipk/control.tar.gz -C /tmp/.colem-ipk/ control conffiles
+	@tar --owner=0 --group=0 -czvf /tmp/.colem-ipk/data.tar.gz -C /tmp/.colem-ipk/root/ .
+	@echo 2.0 > /tmp/.colem-ipk/debian-binary
+	@ar r colem/colem.ipk /tmp/.colem-ipk/control.tar.gz /tmp/.colem-ipk/data.tar.gz /tmp/.colem-ipk/debian-binary
 
 clean:
 	rm -f $(OBJS) $(TARGET)

@@ -1,0 +1,10 @@
+Package: colem
+Version: 
+Description: RetroGame port of Colem
+Section: emus
+Priority: optional
+Maintainer: pingflood
+Architecture: mipsel
+Homepage: https://github.com/pingflood/colem
+Depends:
+Source: https://github.com/pingflood/colem

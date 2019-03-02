@@ -1,0 +1,6 @@
+title=ColecoVision
+description=Colem Emulator
+exec=/home/retrofw/emus/colem/colem.dge
+selectordir=/home/retrofw/roms/colecovision
+selectorfilter=.rom
+clock=600
