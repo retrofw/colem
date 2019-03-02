@@ -319,7 +319,8 @@ psp_sdl_back2_print(int x,int y,const char *str, int color)
     psp_sdl_back2_put_char(x, y, color, c);
     x += psp_font_width;
     if (x >= (PSP_SDL_SCREEN_WIDTH - psp_font_width)) {
-      x = x0; y++;
+      break;
+      // x = x0; y++;
     }
     if (y >= (PSP_SDL_SCREEN_HEIGHT - psp_font_width)) break;
   }
