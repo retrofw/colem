@@ -21,7 +21,7 @@
 # define GP2X_ANALOG_FLAG     0x80
 
 
-static int    loc_Volume = 50;
+static int    loc_Volume = 100;
 
 static int    loc_LastEventMask[GP2X_MAX_JOY]    = { 0, 0, 0 };
 static int    loc_CurrEventMask[GP2X_MAX_JOY]    = { 0, 0, 0 };

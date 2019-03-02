@@ -490,7 +490,7 @@ cv_default_settings()
 {
   //LUDO:
   CV.cv_snd_enable       = 1;
-  CV.cv_render_mode      = CV_RENDER_NORMAL;
+  CV.cv_render_mode      = CV_RENDER_FIT;
 
   CV.cv_ntsc             = 1;
   CV.cv_speed_limiter    = 60;

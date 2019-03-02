@@ -53,7 +53,7 @@ enum menu_items {
   MENU_DEL_SLOT,
 
   MENU_SCREENSHOT,
-  MENU_VOLUME,
+  // MENU_VOLUME,
 
   // MENU_HELP,
 
@@ -80,7 +80,7 @@ enum menu_items {
     { "Delete Slot" },
 
     { "Save Screenshot :" },
-    { "Volume          :" },
+    // { "Volume          :" },
 
     // { "Help" },
 
@@ -104,12 +104,9 @@ enum menu_items {
 void 
 psp_menu_display_save_name()
 {
-  char buffer[128];
-  int Length;
-
-  snprintf(buffer, 30, "%s", CV.cv_save_name);
-  Length = strlen(buffer);
-  psp_sdl_back2_print(10,  5, buffer, PSP_MENU_TEXT2_COLOR);
+  // char buffer[128];
+  // snprintf(buffer, 50, "%s", CV.cv_save_name);
+  psp_sdl_back2_print(10,  5, CV.cv_save_name, PSP_MENU_TEXT2_COLOR);
 }
 
 void
@@ -162,12 +159,12 @@ psp_display_screen_menu(void)
       string_fill_with_space(buffer, 4);
       psp_sdl_back2_print(120, y, buffer, color);
     } else
-    if (menu_id == MENU_VOLUME) {
-      sprintf(buffer,"%d", gp2xGetSoundVolume());
-      string_fill_with_space(buffer, 4);
-      psp_sdl_back2_print(120, y, buffer, color);
-      y += y_step;
-    } else
+    // if (menu_id == MENU_VOLUME) {
+    //   sprintf(buffer,"%d", gp2xGetSoundVolume());
+    //   string_fill_with_space(buffer, 4);
+    //   psp_sdl_back2_print(120, y, buffer, color);
+    //   y += y_step;
+    // } else
     if (menu_id == MENU_DEL_SLOT || menu_id == MENU_SETTINGS || menu_id == MENU_LOAD_ROM) {
       y += y_step;
     }
@@ -538,8 +535,8 @@ psp_main_menu(void)
         break;
         case MENU_DEL_SLOT  : psp_main_menu_cur_slot(step);
         break;
-        case MENU_VOLUME     : psp_main_menu_volume(step);
-        break;              
+        // case MENU_VOLUME     : psp_main_menu_volume(step);
+        // break;              
       }
     } else 
     if ((new_pad == GP2X_CTRL_CIRCLE))
