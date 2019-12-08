@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Colem
+Comment=Colecovision Emulator
+Exec=colem.dge %f
+Icon=colem
+Categories=emulators;
+X-OD-Manual=colem.man.txt
+X-OD-Filter=.rom,.col
+Terminal=false

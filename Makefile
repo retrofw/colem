@@ -1,5 +1,8 @@
 #
-# Colem port on PSP 
+# Colem for the RetroFW
+#
+# by pingflood; 2019
+#
 #
 # Copyright (C) 2006 Ludovic Jacomme (ludovic.jacomme@gmail.com)
 #
@@ -63,33 +66,14 @@ OBJS += ./src/psp_fmgr.o
 DEFAULT_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 
 MORE_CFLAGS = -I. -DUNIX -DBPP16 -DLSB_FIRST -DSOUND  -DCOLEM_VERSION=\"$(COLEM_VERSION)\"
-# MORE_CFLAGS += -DCAANOO_MODE
 
-# MORE_CFLAGS += -DNARROW -DSOUND -DBPP16 -DSDL -DLSB_FIRST
-# MORE_CFLAGS += -I. -I$(SYSROOT)/usr/include  -I$(SYSROOT)/usr/lib  -I$(SYSROOT)/lib
-# MORE_CFLAGS += -DMPU_JZ4740
-# MORE_CFLAGS += -I./src -I./src/emucore -I./src/common -I./src/psp -DPSP -DBSPF_PSP -DSOUND_SUPPORT
-# MORE_CFLAGS += -fsigned-char -ffast-math -fomit-frame-pointer -fno-strength-reduce
 MORE_CFLAGS += -DDINGUX_MODE -mips32 -O3
-#MORE_CFLAGS += -g -DNO_STDIO_REDIRECT
-# MORE_CFLAGS += -O2 -fomit-frame-pointer -ffunction-sections -ffast-math -fsingle-precision-constant # -G0
 
 CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) -O2 -Wall -fsigned-char
 
 LIBS += -Wl,-rpath,$(SYSROOT)/lib -L$(SYSROOT)/lib -lSDL_image -lSDL -lpng -lz -lm
- # -lpthread
 
-
-
-
-
-
-
-# LIBS += -B$(SYSROOT)/lib
-# LIBS += -lSDL_image -lpng
-# LIBS += -lpthread  -ldl -lstdc++
-
-CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS) 
+CFLAGS = $(DEFAULT_CFLAGS) $(MORE_CFLAGS)
 
 all : $(TARGET)
 
@@ -102,7 +86,7 @@ all : $(TARGET)
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(TARGET) && $(STRIP) $(TARGET)
 
-ipk: $(TARGET)
+ipk: all
 	@rm -rf /tmp/.colem-ipk/ && mkdir -p /tmp/.colem-ipk/root/home/retrofw/emus/colem /tmp/.colem-ipk/root/home/retrofw/apps/gmenu2x/sections/emulators /tmp/.colem-ipk/root/home/retrofw/apps/gmenu2x/sections/emulators.systems
 	@cp -r colem/coleco.rom colem/colem.dge colem/colem.man.txt colem/colem.png colem/splash.png colem/thumb.png colem/background.png colem/graphics /tmp/.colem-ipk/root/home/retrofw/emus/colem
 	@cp colem/colem.lnk /tmp/.colem-ipk/root/home/retrofw/apps/gmenu2x/sections/emulators
@@ -114,8 +98,23 @@ ipk: $(TARGET)
 	@echo 2.0 > /tmp/.colem-ipk/debian-binary
 	@ar r colem/colem.ipk /tmp/.colem-ipk/control.tar.gz /tmp/.colem-ipk/data.tar.gz /tmp/.colem-ipk/debian-binary
 
-clean:
-	rm -f $(OBJS) $(TARGET)
+opk: all
+	@mksquashfs \
+	colem/default.retrofw.desktop \
+	colem/colecovision.retrofw.desktop \
+	colem/colem.dge \
+	colem/colem.png \
+	colem/coleco.rom \
+	colem/colem.man.txt \
+	colem/splash.png \
+	colem/thumb.png \
+	colem/background.png \
+	colem/graphics \
+	colem/colem.opk \
+	-all-root -noappend -no-exports -no-xattrs
 
-ctags: 
+ctags:
 	ctags *[ch]
+
+clean:
+	rm -f $(OBJS) $(TARGET) ./colem/colem.ipk
